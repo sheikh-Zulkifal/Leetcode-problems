@@ -4,7 +4,8 @@ public:
         string ans="";
         int n=s.size();
         for(int i=0;i<n;i++){
-            ans.push_back(s[(i+k)%n]);
+            int j=(i+k)%n;
+            ans.push_back(s[j]);
         }
         return ans;
     }
