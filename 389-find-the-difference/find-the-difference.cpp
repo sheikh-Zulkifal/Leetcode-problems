@@ -1,12 +1,16 @@
 class Solution {
 public:
-    char findTheDifference(string s, string t) {
-        int sum_T = 0;
-        int sum_S = 0;
-        for (auto c : s)
-            sum_S += static_cast<int>(c);
-        for (auto c : t)
-            sum_T += static_cast<int>(c);
-        return char(sum_T - sum_S);
+    char findTheDifference(std::string s, std::string t) {
+        char res = 0;
+
+        for (char c : s) {
+            res = res ^ c;
+        }
+
+        for (char c : t) {
+            res = res ^ c;
+        }
+
+        return res;
     }
 };
