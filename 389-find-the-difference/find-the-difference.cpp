@@ -1,21 +1,12 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        unordered_map<char, int> freqMap;
-
-        for (char c : t) {
-            freqMap[c]++;
-        }
-
-        for (char c : s) {
-            freqMap[c]--;
-            if (freqMap[c] == 0) {
-                freqMap.erase(c);
-            }
-        }
-        for (auto pair : freqMap) {
-            return pair.first;
-        }
-         return '\0';
+        int sum_T = 0;
+        int sum_S = 0;
+        for (auto c : s)
+            sum_S += static_cast<int>(c);
+        for (auto c : t)
+            sum_T += static_cast<int>(c);
+        return char(sum_T - sum_S);
     }
 };
