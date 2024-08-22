@@ -1,17 +1,18 @@
 class Solution {
 public:
     bool checkPerfectNumber(int num) {
-        int sum=0;
+        if (num == 1)
+            return false;
         
-            if(num == 2016) return false;
-        for(int i=1; i<num; i++){
-            if(num % i == 0){
-                sum+=i;
-            }
-            if(sum == num){
-                return true;
+        int sum = 1;
+        for (int i = 2; i * i <= num; i++) { // Corrected loop condition
+            if (num % i == 0) {
+                sum += i;
+                if (i != num / i) { // Avoid adding the square root twice
+                    sum += num / i;
+                }
             }
         }
-        return false;
+        return num == sum;
     }
 };
