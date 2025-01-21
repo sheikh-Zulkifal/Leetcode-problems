@@ -1,17 +1,17 @@
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
+    int lengthOfLongestSubstring(string s) { // abcabcbb
         set<char> mySet;
-        int l = 0;
-        int res = 0;
-        for (int r = 0; r < s.size(); r++) {
-            while (mySet.find(s[r]) != mySet.end()) {
-                mySet.erase(s[l]);
-                l++;
+        int left = 0; // 
+        int result = 0;
+        for (int right = 0; right < s.size(); right++) { //s[right] = a
+            while (mySet.find(s[right]) != mySet.end()) { // f 
+                mySet.erase(s[left]);// 
+                left++;// 1
             }
-            mySet.insert(s[r]);
-            res = max(res, r - l + 1);
+            mySet.insert(s[right]);//    a b c
+            result = max(result, right - left + 1); // 3,5-3+1 = 3
         }
-        return res;
+        return result;
     }
 };
