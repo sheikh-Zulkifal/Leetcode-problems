@@ -21,9 +21,9 @@ public:
                 have++;
             }
             while (have == need) {
-                if((r-l+1) < resLen){
-                    resLen = r-l+1;
-                    res = {l,r};
+                if ((r - l + 1) < resLen) {
+                    resLen = r - l + 1;
+                    res = {l, r};
                 }
                 window[s[l]]--;
                 if (countT.count(s[l]) && window[s[l]] < countT[s[l]]) {
