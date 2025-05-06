@@ -1,21 +1,38 @@
 class Solution {
 public:
-    vector<string> generateParenthesis(int n) {
-        vector<string> res;
-        backtrack(res, "", 0, 0, n);
-        return res;
+    vector<string> result;
+
+    bool isValid(string& curr) {
+        int count = 0;
+        for (char& ch : curr) {
+            if (ch == '(')
+                count++;
+            else if (ch == ')')
+                count --;
+
+        if(count < 0) return false;
+        }
+        if(count == 0) return true;
+        else return false;
     }
-    void backtrack(vector<string>& res, string current, int open, int close,
-                   int max) {
-        if (current.length() == max * 2) {
-            res.push_back(current);
+    void solve(string& curr, int n) {
+        if (curr.length() == 2 * n) {
+            if (isValid(curr)) {
+                result.push_back(curr);
+            }
             return;
         }
-        if (open < max) {
-            backtrack(res, current + '(', open + 1, close, max);
-        }
-        if (close < open) {
-            backtrack(res, current + ')', open, close + 1, max);
-        }
+        curr.push_back('(');
+        solve(curr, n);
+        curr.pop_back();
+
+        curr.push_back(')');
+        solve(curr, n);
+        curr.pop_back();
+    }
+    vector<string> generateParenthesis(int n) {
+        string curr = "";
+        solve(curr, n);
+        return result;
     }
 };
