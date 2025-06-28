@@ -15,10 +15,12 @@ public:
             headA = headA->next;
         }
         while (headB) {
-            if (myset.count(headB))
+            if(myset.count(headB)){
                 return headB;
+            }
             headB = headB->next;
         }
         return nullptr;
+
     }
 };
