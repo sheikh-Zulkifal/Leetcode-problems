@@ -10,50 +10,35 @@
  */
 class Solution {
 public:
-    // Custom comparison function for the priority_queue (min-heap)
-    struct Compare {
-        bool operator()(ListNode* a, ListNode* b) {
-            return a->val > b->val;  // We want the smallest value at the top
-        }
-    };
+ListNode* mergeTwoSortedLists(ListNode* l1, ListNode* l2){
+    if(!l1) return l2;
+    if(!l2) return l1;
+    if(l1->val <= l2->val){
+        l1->next = mergeTwoSortedLists(l1->next, l2);
+        return l1;
+    }else{
+        l2->next = mergeTwoSortedLists(l2->next, l1); 
+        return l2;   }
+        return NULL;
+}
+ListNode* partitionAndMerge(int start,int end, vector<ListNode*>& lists){
+    if(start > end){
+        return NULL;
+
+    }
+    if(start == end){
+        return lists[start];
+    }
+    int mid = start +(end-start)/2;
+    ListNode* L1 = partitionAndMerge(start, mid, lists);
+    ListNode* L2 = partitionAndMerge(mid+1, end, lists);
+    return mergeTwoSortedLists(L1,L2);
+
+}
 
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        // Edge case: if there are no lists
-        if (lists.empty()) {
-            return nullptr;
-        }
-
-        // Min-heap (priority queue) to store nodes by their value
-        priority_queue<ListNode*, vector<ListNode*>, Compare> minHeap;
-
-        // Step 1: Add the head (first node) of each list to the heap
-        for (auto list : lists) {
-            if (list != nullptr) {  // Only add non-empty lists
-                minHeap.push(list);
-            }
-        }
-
-        // Create a dummy node to help build the merged list
-        ListNode* dummy = new ListNode(0);
-        ListNode* tail = dummy;  // This will point to the last node in the merged list
-
-        // Step 2: Process the heap until it is empty
-        while (!minHeap.empty()) {
-            // Get the smallest node from the heap
-            ListNode* smallest = minHeap.top();
-            minHeap.pop();  // Remove the smallest node from the heap
-
-            // Add the smallest node to the merged list
-            tail->next = smallest;  // Append it to the merged list
-            tail = tail->next;  // Move the tail pointer forward
-
-            // If the smallest node has a next node, add it to the heap
-            if (smallest->next != nullptr) {
-                minHeap.push(smallest->next);
-            }
-        }
-
-        // Return the merged list (skipping the dummy node)
-        return dummy->next;
+        int k = lists.size();
+        if(k==0)return NULL;
+        return partitionAndMerge(0,k-1, lists);
     }
 };
