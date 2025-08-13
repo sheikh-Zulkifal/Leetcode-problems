@@ -1,19 +1,17 @@
-// two Pointers
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        int n = nums.size();
-        int i = 0;
-        int j = 1;
-
+        int i = 0, j = 1, n = nums.size();
         while (j < n) {
             if (nums[i] != nums[j]) {
+
                 i++;
                 nums[i] = nums[j];
             } else {
+
                 j++;
             }
         }
-        return i+1;
+        return i + 1;
     }
 };
