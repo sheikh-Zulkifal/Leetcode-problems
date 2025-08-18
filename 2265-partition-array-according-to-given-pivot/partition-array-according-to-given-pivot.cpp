@@ -1,24 +1,34 @@
 class Solution {
 public:
     vector<int> pivotArray(vector<int>& nums, int pivot) {
+        int n = nums.size();
+        vector<int> res(n);
+        
+        int left = 0;   // where to place < pivot
+        int countPivot = 0;
 
-        vector<int> less;
-        vector<int> mid;
-        vector<int> greater;
-        vector<int> res;
-        for (auto num : nums) {
+        // First pass: handle < pivot and count pivots
+        for (int num : nums) {
             if (num < pivot) {
-                less.push_back(num);
+                res[left++] = num;
             } else if (num == pivot) {
-                mid.push_back(num);
-
-            } else {
-                greater.push_back(num);
+                countPivot++;
             }
         }
-        res.insert(res.end(), less.begin(), less.end());
-        res.insert(res.end(), mid.begin(), mid.end());
-        res.insert(res.end(), greater.begin(), greater.end());
+
+        // Place pivots in the middle
+        for (int i = 0; i < countPivot; i++) {
+            res[left++] = pivot;
+        }
+
+        // Second pass: handle > pivot in correct order
+        for (int num : nums) {
+            if (num > pivot) {
+                res[left++] = num;
+            }
+        }
+
         return res;
     }
 };
+
